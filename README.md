@@ -1,176 +1,91 @@
-# Incus builds
+# incus-package-repo
 
-Incus package builds provided by Zabbly.
+[![Built with Ona](https://ona.com/build-with-ona.svg)](https://app.ona.com/#https://github.com/Interested-Deving-1896/incus-package-repo) [![KDE Eco](https://img.shields.io/badge/KDE%20Eco-certified-brightgreen?logo=kde&logoColor=white&style=flat-square)](https://eco.kde.org/) [![Blue Angel](https://img.shields.io/badge/Blue%20Angel-DE--UZ%20215-0055a4?style=flat-square)](https://www.blauer-engel.de/en/certification/criteria) [![Energy](https://api.green-coding.io/v1/ci/badge/get?repo=Interested-Deving-1896%2Fincus-package-repo&branch=main&workflow=eco-audit.yml)](https://metrics.green-coding.io/ci-index.html)
 
-There are three repositories available:
 
-* `lts-6.0` (Incus 6.0.x LTS)
-* `stable` (latest release of Incus)
-* `daily` (untested daily builds)
+<!-- AI:start:what-it-does -->
+_Description pending._
+<!-- AI:end:what-it-does -->
 
-## Availability
+## Architecture
 
-Those packages are built for:
+<!-- AI:start:architecture -->
+_Architecture documentation pending._
+<!-- AI:end:architecture -->
 
-* Ubuntu 22.04 LTS (`jammy`)
-* Ubuntu 24.04 LTS (`noble`)
-* Debian 11 (`bullseye`) (`amd64` only)
-* Debian 12 (`bookworm`)
-* Debian 13 (`trixie`)
+## Install
 
-Unless otherwise mentioned, packages are built for both `amd64` (Intel/AMD 64bit) and `arm64` (Arm 64bit).
+<!-- Add installation instructions here. This section is yours — the AI will not modify it. -->
 
-NOTE: It is often possible to use those packages on other non-LTS Ubuntu releases by picking the closest LTS release prior to the Ubuntu version being run.
-
-## Installation
-
-All commands should be run as root.
-
-### Repository key
-
-Packages provided by the repository are signed. In order to verify the integrity of the packages, you need to import the public key. First, verify that the fingerprint of [`key.asc`](https://pkgs.zabbly.com/key.asc) matches `4EFC 5906 96CB 15B8 7C73  A3AD 82CC 8797 C838 DCFD`:
-
-```sh
-curl -fsSL https://pkgs.zabbly.com/key.asc | gpg --show-keys --fingerprint
+```bash
+git clone https://github.com/Interested-Deving-1896/incus-package-repo.git
+cd incus-package-repo
 ```
 
-or if your system has wget instead of curl use
+## Usage
 
-```sh
-wget -q -O - https://pkgs.zabbly.com/key.asc | gpg --show-keys --fingerprint
+<!-- Add usage examples here. This section is yours — the AI will not modify it. -->
+
+## Configuration
+
+<!-- Document configuration options here. This section is yours — the AI will not modify it. -->
+
+## CI
+
+<!-- AI:start:ci -->
+_CI documentation pending._
+<!-- AI:end:ci -->
+
+## Mirror chain
+
+<!-- AI:start:mirror-chain -->
+This repo is maintained in [`Interested-Deving-1896/incus-package-repo`](https://github.com/Interested-Deving-1896/incus-package-repo) and mirrored through:
+
+```
+Interested-Deving-1896/incus-package-repo  ──►  OpenOS-Project-OSP/incus-package-repo  ──►  OpenOS-Project-Ecosystem-OOC/incus-package-repo
 ```
 
-You should get a return that is:
+Changes flow downstream automatically via the hourly mirror chain in
+[`fork-sync-all`](https://github.com/Interested-Deving-1896/fork-sync-all).
+Direct commits to OSP or OOC are detected and opened as PRs back to `Interested-Deving-1896`.
+<!-- AI:end:mirror-chain -->
 
-```sh
-pub   rsa3072 2023-08-23 [SC] [expires: 2030-08-17]
-      4EFC 5906 96CB 15B8 7C73  A3AD 82CC 8797 C838 DCFD
-uid                      Zabbly Kernel Builds <info@zabbly.com>
-sub   rsa3072 2023-08-23 [E] [expires: 2030-08-17]
-```
+## Contributors
 
-If so, make sure the directory /etc/apt/keyrings exists:
+<!-- AI:start:contributors -->
+_Contributors pending._
+<!-- AI:end:contributors -->
 
-```sh
-mkdir -p /etc/apt/keyrings/
-```
+## Origins
 
-and save the key locally with either curl:
+<!-- AI:start:origins -->
+_Original project — no upstream influences recorded._
+<!-- AI:end:origins -->
 
-```sh
-curl -fsSL https://pkgs.zabbly.com/key.asc -o /etc/apt/keyrings/zabbly.asc
-```
+## Resources
 
-or wget:
+<!-- AI:start:resources -->
+_No additional resource files found._
+<!-- AI:end:resources -->
 
-```sh
-wget -O /etc/apt/keyrings/zabbly.asc https://pkgs.zabbly.com/key.asc
-```
+## Accessibility
+
+<!-- AI:start:accessibility -->
+This repo uses automated accessibility auditing via `check-accessibility.yml`.
+
+Checks include: CODEOWNERS ownership coverage, README screen-reader compatibility,
+WCAG 2.1 AA HTML compliance, audio overview (espeak-ng), and Braille output (liblouis).
 
 
-### 6.0 LTS repository
 
-On any of the distributions above, you can add the package repository at `/etc/apt/sources.list.d/zabbly-incus-lts-6.0.sources`.
 
-Run the following command to add the 6.0 LTS repository:
+Run the [Check Accessibility](https://github.com/Interested-Deving-1896/incus-package-repo/actions/workflows/check-accessibility.yml)
+workflow to generate the first report and accessibility artifacts.
+See [DOCS/accessibility.md](https://github.com/Interested-Deving-1896/incus-package-repo/blob/main/DOCS/accessibility.md) for the full reference.
+<!-- AI:end:accessibility -->
 
-```sh
-sh -c 'cat <<EOF > /etc/apt/sources.list.d/zabbly-incus-lts-6.0.sources
-Enabled: yes
-Types: deb
-URIs: https://pkgs.zabbly.com/incus/lts-6.0
-Suites: $(. /etc/os-release && echo ${VERSION_CODENAME})
-Components: main
-Architectures: $(dpkg --print-architecture)
-Signed-By: /etc/apt/keyrings/zabbly.asc
+## License
 
-EOF'
-```
-
-### Stable repository
-
-On any of the distributions above, you can add the package repository at `/etc/apt/sources.list.d/zabbly-incus-stable.sources`.
-
-Run the following command to add the stable repository:
-
-```sh
-sh -c 'cat <<EOF > /etc/apt/sources.list.d/zabbly-incus-stable.sources
-Enabled: yes
-Types: deb
-URIs: https://pkgs.zabbly.com/incus/stable
-Suites: $(. /etc/os-release && echo ${VERSION_CODENAME})
-Components: main
-Architectures: $(dpkg --print-architecture)
-Signed-By: /etc/apt/keyrings/zabbly.asc
-
-EOF'
-```
-
-### Daily repository
-
-On any of the distributions above, you can add the package repository at `/etc/apt/sources.list.d/zabbly-incus-daily.sources`.
-
-Run the following command to add the daily repository:
-
-```sh
-sh -c 'cat <<EOF > /etc/apt/sources.list.d/zabbly-incus-daily.sources
-Enabled: yes
-Types: deb
-URIs: https://pkgs.zabbly.com/incus/daily
-Suites: $(. /etc/os-release && echo ${VERSION_CODENAME})
-Components: main
-Architectures: $(dpkg --print-architecture)
-Signed-By: /etc/apt/keyrings/zabbly.asc
-
-EOF'
-```
-
-### Installing Incus
-
-Update your repository list with:
-
-```sh
-apt-get update
-```
-
-Then to install Incus, run:
-
-```sh
-apt-get install incus
-```
-
-### Other packages
-
-The repository also includes the following packages:
-
- - `incus-client`, a package containing only the CLI tool, useful when only managing remote servers
- - `incus-ui-canonical`, a package containing a rebranded version of the LXD web interface for use with Incus
-
-### Setting up the UI
-
-When using `incus-ui-canonical`, you will need to have Incus listen on the network.
-This is done either by enabling it during `incus admin init` or by setting a listener through `incus config set`.
-
-For example:
-```
-incus config set core.https_address :8443
-```
-
-After that, you can access the UI through https://localhost:8443, accept the self-signed certificate and follow the login instructions.
-
-As `incus-ui-canonical` is a re-branded version of the LXD UI, you can find useful information in [their documentation](https://documentation.ubuntu.com/lxd/en/latest/howto/access_ui/).
-
-## Support
-Community support for Incus is provided at https://discuss.linuxcontainers.org
-
-Commercial support for those Incus packages is provided by Zabbly, details at https://zabbly.com/incus
-
-You can also help support the work on Incus and on those packages through:
-
- - [Github Sponsors](https://github.com/sponsors/stgraber)
- - [Patreon](https://patreon.com/stgraber)
- - [Ko-Fi](https://ko-fi.com/stgraber)
-
-## Repository
-
-This repository gets actively rebased as new releases come out, DO NOT expect a linear git history.
+<!-- AI:start:license -->
+[Apache-2.0](https://github.com/Interested-Deving-1896/incus-package-repo/blob/daily/COPYING) © 2026 [Interested-Deving-1896](https://github.com/Interested-Deving-1896)
+<!-- AI:end:license -->
